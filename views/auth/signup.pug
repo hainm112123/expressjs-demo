@@ -1,0 +1,46 @@
+extends ../layouts/common.pug 
+
+block content
+  h1 Signup 
+
+  form(method="POST")
+    .mb-3
+      label(for="email" class="col-sm-2 col-form-label") Email 
+      div(class="col-sm-10")
+        input(name="email" class="form-control" type="email" id="email" value=inputValues ? inputValues.email : "")
+        if (errors && errors.emailExist) 
+          .alert.alert-danger.mt-2(role="alert") Email has already exist!
+        if (errors && errors.emailLength) 
+          .alert.alert-danger.mt-2(role="alert") Email is required!
+
+    .mb-3
+      label(for="name" class="col-sm-2 col-form-label") Name 
+      div(class="col-sm-10")
+        input(name="name" class="form-control" type="text" id="name" value=inputValues ? inputValues.name : "")
+        if (errors && errors.name) 
+          .alert.alert-danger.mt-2(role="alert") Name is required!
+
+    .mb-3
+      label(for="phone" class="col-sm-2 col-form-label") Phone
+      div(class="col-sm-10")
+        input(name="phone" class="form-control" type="text" id="phone" value=inputValues ? inputValues.phone : "")
+        if (errors && errors.phone) 
+          .alert.alert-danger.mt-2(role="alert") Phone is required!
+    
+    .mb-3
+      label(for="password" class="col-sm-2 col-form-label") Password
+      div(class="col-sm-10")
+        input(name="password" class="form-control" type="password" id="password" value=inputValues ? inputValues.password : "")
+        if (errors && errors.password) 
+          .alert.alert-danger.mt-2(role="alert") Password need at least 4 characters!
+
+    .mb-3
+      label(for="retype-password" class="col-sm-2 col-form-label") Retype Password
+      div(class="col-sm-10")
+        input(name="retypePassword" class="form-control" type="password" id="retype-password" value=inputValues ? inputValues.retypePassword : "")
+        if (errors && errors.retypePassword) 
+          .alert.alert-danger.mt-2(role="alert") Retyped password doesn't match!
+      
+
+    button(type="submit" class="btn btn-primary") Signup
+    

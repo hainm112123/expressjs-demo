@@ -14,7 +14,30 @@ html
               a(class="nav-link navbar-page-name-", href="/") Home
             li(class="nav-item")
               a(class="nav-link navbar-page-name-users", href="/users") Users
-
+          if (!userInfo)
+            div(class="d-flex")
+              a(class="btn btn-outline-light me-2" href="/auth/login") Login
+              a(class="btn btn-outline-light" href="/auth/signup") Signup
+          else 
+            ul(class="navbar-nav mb-lg-0")
+              li(class="nav-item dropdown user-container")
+                a(class="nav-link dropdown-toggle user-display-wrap" href="#" role="button" data-bs-toggle="dropdown" aria-expand="false") 
+                  div(class="user-display-logo")
+                  span(class="user-display-text") Hello,&nbsp 
+                    b #{userInfo.name}
+                ul(class="dropdown-menu dropdown-menu-dark")
+                  li
+                    a(class="dropdown-item" href="#") Setting & privacy
+                  li
+                    a(class="dropdown-item" href="#") Help & support
+                  li
+                    a(class="dropdown-item" href="#") Display & accessibility
+                  li
+                    hr(class="dropdown-divider")
+                  li
+                    a(class="dropdown-item" href="/logout") Logout
+                
+              
     div(class="container")
       block content 
 

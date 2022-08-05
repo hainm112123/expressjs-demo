@@ -1,0 +1,23 @@
+extends ../layouts/common.pug 
+
+block content
+  h1 Login 
+
+  form(method="POST")
+    .mb-3
+      label(for="email" class="col-sm-2 col-form-label") Email 
+      div(class="col-sm-10")
+        input(name="email" class="form-control" type="text" id="email" value=inputValues ? inputValues.email : "")
+        if (errors && errors.email) 
+          .alert.alert-danger.mt-2(role="alert") User doesn't exist!
+    
+    .mb-3
+      label(for="password" class="col-sm-2 col-form-label") Password
+      div(class="col-sm-10")
+        input(name="password" class="form-control" type="password" id="password" value=inputValues ? inputValues.password : "")
+        if (errors && errors.password) 
+          .alert.alert-danger.mt-2(role="alert") Wrong password!
+      
+
+    button(type="submit" class="btn btn-primary") Login
+    

@@ -2,3 +2,23 @@
   width: 50px;
   border-radius: 50px;
 }
+
+.user-display-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.user-display-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 36px;
+  background-image: url('../image/school-avatar.svg');
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.user-display-text {
+  font-size: 14px;
+}
