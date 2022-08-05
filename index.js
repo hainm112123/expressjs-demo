@@ -16,11 +16,11 @@ app.set('views', './views');
 app.use(express.static('public'))
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
+app.use(cookieParser('asdasd12312afa222ssa24'));
 
 app.use(function(req, res, next) {
-  if (req.cookies.userId) {
-    var user = db.get("users").find({id: req.cookies.userId}).value();
+  if (req.signedCookies.userId) {
+    var user = db.get("users").find({id: req.signedCookies.userId}).value();
     if (user) res.locals.userInfo = user;
   }
   next();

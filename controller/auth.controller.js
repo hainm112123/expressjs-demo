@@ -1,6 +1,7 @@
 const { application } = require('express');
 const shortid = require('shortid');
 const db = require('../db');
+const md5 = require('md5');
 
 const usersRef = db.get('users');
 
@@ -22,7 +23,7 @@ module.exports = {
       return;
     }
 
-    if (user.password !== inputValues.password) {
+    if (user.password !== md5(inputValues.password)) {
       res.render('auth/login', {
         inputValues: inputValues,
         errors: {
@@ -31,7 +32,7 @@ module.exports = {
       })
     }
 
-    res.cookie('userId', user.id);
+    res.cookie('userId', user.id, {signed: true});
     res.redirect('/');
   },
 
@@ -64,11 +65,11 @@ module.exports = {
       name: inputValues.name,
       phone: inputValues.phone,
       email: inputValues.email,
-      password: inputValues.password,
+      password: md5(inputValues.password),
     }).write();
 
     user = usersRef.find({email: inputValues.email}).value();
-    res.cookie('userId', user.id);
+    res.cookie('userId', user.id, {signed: true});
     res.redirect('/');
   }
 }

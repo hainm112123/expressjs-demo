@@ -5,12 +5,12 @@ const usersRef = db.get('users');
 module.exports = {
   requireAuth: function(req, res, next) {
     // console.log(req.cookies);
-    if (!req.cookies.userId) {
+    if (!req.signedCookies.userId) {
       res.redirect('/auth/login');
       return;
     }
 
-    var user = usersRef.find({id: req.cookies.userId}).value();
+    var user = usersRef.find({id: req.signedCookies.userId}).value();
     // console.log(user);
     if (!user) {
       res.redirect('/auth/login');
@@ -21,8 +21,8 @@ module.exports = {
   },
 
   authed: function(req, res, next) {
-    if (req.cookies.userId) {
-      var user = usersRef.find({id: req.cookies.userId}).value();
+    if (req.signedCookies.userId) {
+      var user = usersRef.find({id: req.signedCookies.userId}).value();
       if (user) {
         res.redirect('/');
         return;
