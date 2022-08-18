@@ -1,0 +1,26 @@
+extends ../layouts/common.pug 
+
+block css-external 
+  link(rel="stylesheet", href="/style/products/main.css")
+block js-external 
+  script(src="/js/prodcuts/index.js") 
+
+block content 
+  .content-container
+    h1 Products
+    a(class="btn btn-secondary mb-4", href="/products/create") New product
+    form(action="/users/search", method="GET", class="row row-cols-lg-auto g-2 align-items-center") 
+      div(class="w-50 col-12")
+        input(class="form-control" type="text", name="q", value=searchValue)
+      div(class="col-12")
+        button(class="btn btn-primary") Search
+    .container.product__container 
+      .row 
+        each product in products 
+          .col-3 
+            .card.product__card
+              .product__card-img(style="background-image: url(" + product.imgURL + ")")
+              .card-body 
+                h5.card-title= product.name
+                p.card-text= product.description
+                a(href="#" class="btn btn-primary") Add to cart 

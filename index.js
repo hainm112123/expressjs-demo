@@ -7,6 +7,7 @@ const db = require('./db');
 const port = 5000;
 
 const usersRoute = require('./routes/users.route');
+const productsRoute = require('./routes/products.route');
 const authRoute = require('./routes/auth.route');
 
 const authMiddleware = require('./middleware/auth.middleware');
@@ -36,6 +37,7 @@ app.get('/', function(req, res) {
 });
 
 app.use('/users', authMiddleware.requireAuth, usersRoute);
+app.use('/products', authMiddleware.requireAuth, productsRoute);
 app.get('/logout', function(req, res) {
   res.clearCookie('userId');
   res.redirect('/');

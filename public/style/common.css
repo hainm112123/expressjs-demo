@@ -22,3 +22,7 @@
 .user-display-text {
   font-size: 14px;
 }
+
+.content-container {
+  margin: 40px 70px;
+}

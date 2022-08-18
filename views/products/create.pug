@@ -1,0 +1,45 @@
+extends ../layouts/common.pug 
+
+block content
+  .content-container
+    h1 Add new product 
+
+    form(action="/products/create", method="POST")
+      .mb-3
+        select.form-select(aria-label="Default select example" name="select") 
+          option(selected value="null") Choose book to add 
+          option(value="bsd Bungou Stray Dogs") Bungou Stray Dogs 
+          option(value="bsd2 Bungou Stray Dogs") Bungou Stray Dogs 2 
+          option(value="bsd3 Bungou Stray Dogs") Bungou Stray Dogs 3 
+          option(value="chainsawman Chainsaw Man") Chainsaw Man
+          option(value="chainsawman2 Chainsaw Man") Chainsaw Man 2
+          option(value="firepunch Fire Punch") Fire Punch
+          option(value="lookback Look Back") Look Back 
+          option(value="goodbye-eri Goodbye, Eri") Goodbye, Eri
+          option(value="just-listen-it Just Listen It") Just Listen It  
+          option(value="cote Classroom of the elite") Classroom of the elite 
+          option(value="fatezero Fate: Zero") Fate: Zero
+          option(value="fatezero2 Fate: Zero") Fate: Zero 2
+          option(value="fsnHF Fate Stay Night: Heaven's Feel") Fate Stay Night: Heaven's Feel
+          option(value="fsnUBW Fate Stay Night: Unlimited Blade Works") Fate Stay Night: Unlimited Blade Works
+          option(value="majo-no-tabitabi Majo No Tabitabi") Majo No Tabitabi 
+          option(value="majo-no-tabitabi-2 Majo No Tabitabi") Majo No Tabitabi 2 
+          option(value="majo-no-tabitabi-3 Majo No Tabitabi") Majo No Tabitabi 3
+          option(value="oregairu Oregairu") Oregairu
+          option(value="oregairu2 Oregairu") Oregairu 2
+          option(value="oregairu4 Oregairu") Oregairu 4
+          option(value="oregairu5 Oregairu") Oregairu 5
+          option(value="rezero Re:Zero kara Hajimeru Isekai Seikatsu") Re:Zero kara Hajimeru Isekai Seikatsu
+          option(value="rezero2 Re:Zero kara Hajimeru Isekai Seikatsu") Re:Zero kara Hajimeru Isekai Seikatsu 2
+          option(value="rezero3 Re:Zero kara Hajimeru Isekai Seikatsu") Re:Zero kara Hajimeru Isekai Seikatsu 3
+          option(value="rezero4 Re:Zero kara Hajimeru Isekai Seikatsu") Re:Zero kara Hajimeru Isekai Seikatsu 4
+          option(value="rezero6 Re:Zero kara Hajimeru Isekai Seikatsu") Re:Zero kara Hajimeru Isekai Seikatsu 6
+          option(value="rezero7 Re:Zero kara Hajimeru Isekai Seikatsu") Re:Zero kara Hajimeru Isekai Seikatsu 7
+          option(value="aobuta Seishun Buta Yaro") Seishun Buta Yaro
+          option(value="aobuta2 Seishun Buta Yaro") Seishun Buta Yaro 2
+          option(value="aobuta3 Seishun Buta Yaro") Seishun Buta Yaro 3
+      if (notChoosed) 
+        .alert.alert-danger(role="alert") Please choose your book!
+      
+      input(type="submit" value="Create" class="btn btn-primary")
+    

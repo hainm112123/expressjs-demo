@@ -1,23 +1,24 @@
 extends ../layouts/common.pug 
 
 block content
-  h1 Create new user 
+  .content-container
+    h1 Create new user 
 
-  form(action="/users/create", method="POST")
-    .mb-3
-      label(for="name" class="col-sm-2 col-form-label") Name 
-      div(class="col-sm-10")
-        input(name="name" class="form-control" type="text" id="name" value=inputValues ? inputValues.name : "")
-        if (errors && errors.name) 
-          .alert.alert-danger.mt-2(role="alert") Name is required!
-    
-    .mb-3
-      label(for="phone" class="col-sm-2 col-form-label") Phone
-      div(class="col-sm-10")
-        input(name="phone" class="form-control" type="text" id="phone" value=inputValues ? inputValues.phone : "")
-        if (errors && errors.phone) 
-          .alert.alert-danger.mt-2(role="alert") Phone is required!
+    form(action="/users/create", method="POST")
+      .mb-3
+        label(for="name" class="col-sm-2 col-form-label") Name 
+        div(class="col-sm-10")
+          input(name="name" class="form-control" type="text" id="name" value=inputValues ? inputValues.name : "")
+          if (errors && errors.name) 
+            .alert.alert-danger.mt-2(role="alert") Name is required!
       
+      .mb-3
+        label(for="phone" class="col-sm-2 col-form-label") Phone
+        div(class="col-sm-10")
+          input(name="phone" class="form-control" type="text" id="phone" value=inputValues ? inputValues.phone : "")
+          if (errors && errors.phone) 
+            .alert.alert-danger.mt-2(role="alert") Phone is required!
+        
 
-    button(type="submit" class="btn btn-primary") Create
+      button(type="submit" class="btn btn-primary") Create
     

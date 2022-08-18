@@ -1,23 +1,24 @@
 extends ../layouts/common.pug 
 
 block content 
-  h1 Users list 
-  a(class="btn btn-secondary mb-4", href="/users/create") New user
-  form(action="/users/search", method="GET", class="row row-cols-lg-auto g-2 align-items-center") 
-    div(class="w-50 col-12")
-      input(class="form-control" type="text", name="q", value=searchValue)
-    div(class="col-12")
-      button(class="btn btn-primary") Search
-  table.table 
-    thead 
-      tr 
-        th(scope="col") Name 
-        th(scope="col") Phone 
-        th(scope="col") Action
-    tbody 
-      each user in users 
-        tr
-          td= user.name 
-          td= user.phone
-          td 
-            a(class="btn btn-light" href="/users/" + user.id) view
+  .content-container
+    h1 Users list 
+    a(class="btn btn-secondary mb-4", href="/users/create") New user
+    form(action="/users/search", method="GET", class="row row-cols-lg-auto g-2 align-items-center") 
+      div(class="w-50 col-12")
+        input(class="form-control" type="text", name="q", value=searchValue)
+      div(class="col-12")
+        button(class="btn btn-primary") Search
+    table.table 
+      thead 
+        tr 
+          th(scope="col") Name 
+          th(scope="col") Phone 
+          th(scope="col") Action
+      tbody 
+        each user in users 
+          tr
+            td= user.name 
+            td= user.phone
+            td 
+              a(class="btn btn-light" href="/users/" + user.id) view

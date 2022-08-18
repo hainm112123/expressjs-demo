@@ -1,0 +1,10 @@
+.product__card-img {
+  height: 360px;
+  /* background-image: url('/image/products/lookback.png'); */
+  background-size: cover;
+  background-position: center;
+}
+
+.product__card {
+  margin-bottom: 16px;
+}
