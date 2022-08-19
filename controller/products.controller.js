@@ -5,8 +5,13 @@ const productsRef = db.get('products');
 
 module.exports = {
   index: function(req, res) {
+    var page = parseInt(req.query.page) || 1;
+    var perPage = 8;
+    var products = productsRef.value();
     res.render('products/index', {
-      products: productsRef.value(),
+      products: products.slice((page - 1) * perPage, page * perPage),
+      pageIndex: page,
+      numPage: ((products.length  - 1) / perPage >> 0) + 1,
     });
   },
   

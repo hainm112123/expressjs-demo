@@ -7,4 +7,19 @@
 
 .product__card {
   margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.product__card-title {
+  height: 48px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.range-btn {
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
 }

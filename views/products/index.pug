@@ -7,13 +7,14 @@ block js-external
 
 block content 
   .content-container
-    h1 Products
-    a(class="btn btn-secondary mb-4", href="/products/create") New product
-    form(action="/users/search", method="GET", class="row row-cols-lg-auto g-2 align-items-center") 
-      div(class="w-50 col-12")
-        input(class="form-control" type="text", name="q", value=searchValue)
-      div(class="col-12")
-        button(class="btn btn-primary") Search
+    .container
+      h1 Products
+      a(class="btn btn-secondary mb-4", href="/products/create") New product
+      form(action="/users/search", method="GET", class="row row-cols-lg-auto g-2 align-items-center") 
+        div(class="w-50 col-12")
+          input(class="form-control" type="text", name="q", value=searchValue)
+        div(class="col-12")
+          button(class="btn btn-primary") Search
     .container.product__container 
       .row 
         each product in products 
@@ -21,6 +22,52 @@ block content
             .card.product__card
               .product__card-img(style="background-image: url(" + product.imgURL + ")")
               .card-body 
-                h5.card-title= product.name
+                h5.card-title.product__card-title= product.name
                 p.card-text= product.description
-                a(href="#" class="btn btn-primary") Add to cart 
+                a(href="#" class="btn btn-primary") Add to cart
+    .container.pagination-container  
+      nav(aria-label="Page navigation example")
+        ul.pagination
+          li.page-item
+            a.page-link(href="/products?page=" + (pageIndex - 1) aria-label="Previous" class={"disabled": pageIndex === 1}) 
+              span(aria-hiden="true") &laquo;
+
+          if (numPage <= 7) 
+            - var i = 1;
+            while (i <= numPage) 
+              li.page-item 
+                a.page-link(href="/products?page=" + i, class={"active": pageIndex === i}, aria-current={"page": pageIndex === i}) #{i}
+              - i ++;
+          else 
+            li.page-item 
+              a.page-link(href="/products?page=1", class={"active": pageIndex === 1}, aria-current={"page": pageIndex === 1}) 1
+            li.page-item 
+              a.page-link(href="/products?page=2", class={"active": pageIndex === 2}, aria-current={"page": pageIndex === 2}) 2
+
+            if (pageIndex > 4) 
+              li.page-item 
+                a.page-link.disabled.range-btn(href="#") ...
+
+            if (pageIndex > 3 && pageIndex < numPage) 
+              li.page-item 
+                a.page-link(href="/products?page=" + (pageIndex - 1)) #{pageIndex - 1}
+            if (pageIndex > 2 && pageIndex < numPage - 1) 
+              li.page-item 
+                a.page-link.active(href="/products?page=" + i, aria-current="page") #{pageIndex}
+            if (pageIndex < numPage - 2 && pageIndex > 1) 
+              li.page-item 
+                a.page-link(href="/products?page=" + (pageIndex + 1)) #{pageIndex + 1}
+
+            if (pageIndex < numPage - 3) 
+              li.page-item 
+                a.page-link.disabled.range-btn(href="#") ...
+
+            li.page-item 
+              a.page-link(href="/products?page=" + (numPage - 1), class={"active": pageIndex === numPage - 1}, aria-current={"page": pageIndex === numPage - 1}) #{numPage - 1}
+            li.page-item 
+              a.page-link(href="/products?page=" + numPage, class={"active": pageIndex === numPage}, aria-current={"page": pageIndex === numPage}) #{numPage}
+
+          li.page-item 
+            a.page-link(href="/products?page=" + (pageIndex + 1) arial="Next" class={"disabled": pageIndex === numPage})
+              span(aria-hiden="true") &raquo; 
+          

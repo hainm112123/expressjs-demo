@@ -24,5 +24,10 @@
 }
 
 .content-container {
-  margin: 40px 70px;
+  margin: 40px 60px;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
 }
