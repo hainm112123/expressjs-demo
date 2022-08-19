@@ -25,7 +25,9 @@ app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(function(req, res, next) {
   if (req.signedCookies.userId) {
     var user = db.get("users").find({id: req.signedCookies.userId}).value();
-    if (user) res.locals.userInfo = user;
+    if (user) {
+      res.locals.userInfo = user;
+    }
   }
   next();
 })
