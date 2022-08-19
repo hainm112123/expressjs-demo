@@ -26,7 +26,7 @@ html
             ul(class="navbar-nav mb-lg-0")
               li(class="nav-item dropdown user-container")
                 a(class="nav-link dropdown-toggle user-display-wrap" href="#" role="button" data-bs-toggle="dropdown" aria-expand="false") 
-                  div(class="user-display-logo")
+                  div(class="user-display-logo" style="background-image: url(" + userInfo.avatar + ")")
                   span(class="user-display-text") Hello,&nbsp 
                     b #{userInfo.name}
                 ul(class="dropdown-menu dropdown-menu-dark")
