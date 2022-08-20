@@ -11,14 +11,14 @@ module.exports = {
   },
 
   search: function(req, res) {
-    var q = req.query.q;
+    var q = req.query.q.toLowerCase();
     var users = usersRef.value();
     var matchUsers = users.filter(function(user) {
-      return user.name.indexOf(q) !== -1;
+      return user.name.toLowerCase().indexOf(q) !== -1;
     });
     res.render('users/index', {
       users: matchUsers,
-      searchValue: q,
+      searchValue: req.query.q,
     });
   },
 
