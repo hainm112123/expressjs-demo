@@ -10,30 +10,33 @@ block content
     .container
       h1 Products
       a(class="btn btn-secondary mb-4", href="/products/create") New product
-      form(action="/users/search", method="GET", class="row row-cols-lg-auto g-2 align-items-center") 
+      form(action="/products", method="GET", class="row row-cols-lg-auto g-2 align-items-center") 
         div(class="w-50 col-12")
           input(class="form-control" type="text", name="q", value=searchValue)
         div(class="col-12")
           button(class="btn btn-primary") Search
-
+ 
     .container.pagination-container  
       nav(aria-label="Page navigation example")
+        - var locationPrefix = baseUrl;
+        - if (searchValue) locationPrefix += "?q=" + searchValue + "&page=";
+        - else locationPrefix += "?page="; 
         ul.pagination
           li.page-item
-            a.page-link(href="/products?page=" + (pageIndex - 1) aria-label="Previous" class={"disabled": pageIndex === 1}) 
+            a.page-link(href=locationPrefix + (pageIndex - 1) aria-label="Previous" class={"disabled": pageIndex === 1}) 
               span(aria-hiden="true") &laquo;
 
           if (numPage <= 7) 
             - var i = 1;
             while (i <= numPage) 
               li.page-item 
-                a.page-link(href="/products?page=" + i, class={"active": pageIndex === i}, aria-current={"page": pageIndex === i}) #{i}
+                a.page-link(href=locationPrefix + i, class={"active": pageIndex === i}, aria-current={"page": pageIndex === i}) #{i}
               - i ++;
           else 
             li.page-item 
-              a.page-link(href="/products?page=1", class={"active": pageIndex === 1}, aria-current={"page": pageIndex === 1}) 1
+              a.page-link(href=locationPrefix + "1", class={"active": pageIndex === 1}, aria-current={"page": pageIndex === 1}) 1
             li.page-item 
-              a.page-link(href="/products?page=2", class={"active": pageIndex === 2}, aria-current={"page": pageIndex === 2}) 2
+              a.page-link(href=locationPrefix + "2", class={"active": pageIndex === 2}, aria-current={"page": pageIndex === 2}) 2
 
             if (pageIndex > 4) 
               li.page-item 
@@ -41,27 +44,27 @@ block content
 
             if (pageIndex > 3 && pageIndex < numPage) 
               li.page-item 
-                a.page-link(href="/products?page=" + (pageIndex - 1)) #{pageIndex - 1}
+                a.page-link(href=locationPrefix + (pageIndex - 1)) #{pageIndex - 1}
             if (pageIndex > 2 && pageIndex < numPage - 1) 
               li.page-item 
-                a.page-link.active(href="/products?page=" + i, aria-current="page") #{pageIndex}
+                a.page-link.active(href=locationPrefix + i, aria-current="page") #{pageIndex}
             if (pageIndex < numPage - 2 && pageIndex > 1) 
               li.page-item 
-                a.page-link(href="/products?page=" + (pageIndex + 1)) #{pageIndex + 1}
+                a.page-link(href=locationPrefix + (pageIndex + 1)) #{pageIndex + 1}
 
             if (pageIndex < numPage - 3) 
               li.page-item 
                 a.page-link.disabled.range-btn(href="#") ...
 
             li.page-item 
-              a.page-link(href="/products?page=" + (numPage - 1), class={"active": pageIndex === numPage - 1}, aria-current={"page": pageIndex === numPage - 1}) #{numPage - 1}
+              a.page-link(href=locationPrefix + (numPage - 1), class={"active": pageIndex === numPage - 1}, aria-current={"page": pageIndex === numPage - 1}) #{numPage - 1}
             li.page-item 
-              a.page-link(href="/products?page=" + numPage, class={"active": pageIndex === numPage}, aria-current={"page": pageIndex === numPage}) #{numPage}
+              a.page-link(href=locationPrefix + numPage, class={"active": pageIndex === numPage}, aria-current={"page": pageIndex === numPage}) #{numPage}
 
           li.page-item 
-            a.page-link(href="/products?page=" + (pageIndex + 1) arial="Next" class={"disabled": pageIndex === numPage})
+            a.page-link(href=locationPrefix + (pageIndex + 1) arial="Next" class={"disabled": pageIndex === numPage})
               span(aria-hiden="true") &raquo; 
-    
+ 
     .container.product__container 
       .row 
         each product in products 
@@ -75,22 +78,25 @@ block content
 
     .container.pagination-container  
       nav(aria-label="Page navigation example")
+        - var locationPrefix = baseUrl;
+        - if (searchValue) locationPrefix += "?q=" + searchValue + "&page=";
+        - else locationPrefix += "?page="; 
         ul.pagination
           li.page-item
-            a.page-link(href="/products?page=" + (pageIndex - 1) aria-label="Previous" class={"disabled": pageIndex === 1}) 
+            a.page-link(href=locationPrefix + (pageIndex - 1) aria-label="Previous" class={"disabled": pageIndex === 1}) 
               span(aria-hiden="true") &laquo;
 
           if (numPage <= 7) 
             - var i = 1;
             while (i <= numPage) 
               li.page-item 
-                a.page-link(href="/products?page=" + i, class={"active": pageIndex === i}, aria-current={"page": pageIndex === i}) #{i}
+                a.page-link(href=locationPrefix + i, class={"active": pageIndex === i}, aria-current={"page": pageIndex === i}) #{i}
               - i ++;
           else 
             li.page-item 
-              a.page-link(href="/products?page=1", class={"active": pageIndex === 1}, aria-current={"page": pageIndex === 1}) 1
+              a.page-link(href=locationPrefix + "1", class={"active": pageIndex === 1}, aria-current={"page": pageIndex === 1}) 1
             li.page-item 
-              a.page-link(href="/products?page=2", class={"active": pageIndex === 2}, aria-current={"page": pageIndex === 2}) 2
+              a.page-link(href=locationPrefix + "2", class={"active": pageIndex === 2}, aria-current={"page": pageIndex === 2}) 2
 
             if (pageIndex > 4) 
               li.page-item 
@@ -98,24 +104,24 @@ block content
 
             if (pageIndex > 3 && pageIndex < numPage) 
               li.page-item 
-                a.page-link(href="/products?page=" + (pageIndex - 1)) #{pageIndex - 1}
+                a.page-link(href=locationPrefix + (pageIndex - 1)) #{pageIndex - 1}
             if (pageIndex > 2 && pageIndex < numPage - 1) 
               li.page-item 
-                a.page-link.active(href="/products?page=" + i, aria-current="page") #{pageIndex}
+                a.page-link.active(href=locationPrefix + i, aria-current="page") #{pageIndex}
             if (pageIndex < numPage - 2 && pageIndex > 1) 
               li.page-item 
-                a.page-link(href="/products?page=" + (pageIndex + 1)) #{pageIndex + 1}
+                a.page-link(href=locationPrefix + (pageIndex + 1)) #{pageIndex + 1}
 
             if (pageIndex < numPage - 3) 
               li.page-item 
                 a.page-link.disabled.range-btn(href="#") ...
 
             li.page-item 
-              a.page-link(href="/products?page=" + (numPage - 1), class={"active": pageIndex === numPage - 1}, aria-current={"page": pageIndex === numPage - 1}) #{numPage - 1}
+              a.page-link(href=locationPrefix + (numPage - 1), class={"active": pageIndex === numPage - 1}, aria-current={"page": pageIndex === numPage - 1}) #{numPage - 1}
             li.page-item 
-              a.page-link(href="/products?page=" + numPage, class={"active": pageIndex === numPage}, aria-current={"page": pageIndex === numPage}) #{numPage}
+              a.page-link(href=locationPrefix + numPage, class={"active": pageIndex === numPage}, aria-current={"page": pageIndex === numPage}) #{numPage}
 
           li.page-item 
-            a.page-link(href="/products?page=" + (pageIndex + 1) arial="Next" class={"disabled": pageIndex === numPage})
+            a.page-link(href=locationPrefix + (pageIndex + 1) arial="Next" class={"disabled": pageIndex === numPage})
               span(aria-hiden="true") &raquo; 
           
