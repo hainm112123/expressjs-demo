@@ -11,6 +11,8 @@ const productsRoute = require('./routes/products.route');
 const authRoute = require('./routes/auth.route');
 
 const authMiddleware = require('./middleware/auth.middleware');
+const seesionMiddleware = require('./middleware/session.middleware');
+const sessionMiddleware = require('./middleware/session.middleware');
 
 const app = express();
 app.set('view engine', 'pug');
@@ -30,7 +32,9 @@ app.use(function(req, res, next) {
     }
   }
   next();
-})
+});
+
+app.use(sessionMiddleware);
 
 app.get('/', function(req, res) {
   res.render('index', {
@@ -39,7 +43,7 @@ app.get('/', function(req, res) {
 });
 
 app.use('/users', authMiddleware.requireAuth, usersRoute);
-app.use('/products', authMiddleware.requireAuth, productsRoute);
+app.use('/products', productsRoute);
 app.get('/logout', function(req, res) {
   res.clearCookie('userId');
   res.redirect('/');

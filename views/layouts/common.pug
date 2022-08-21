@@ -12,12 +12,14 @@ html
           img(src="/image/logo.jpg", alt="", class="navbar__logo")
         div(class="collapse navbar-collapse") 
           ul(class="navbar-nav me-auto mb-2 mb-lg-0")
-            li(class="nav-item")
+            li.nav-item
               a(class="nav-link navbar-page-name-", href="/") Home
-            li(class="nav-item")
+            li.nav-item
               a(class="nav-link navbar-page-name-users", href="/users") Users
-            li(class="nav-item")
+            li.nav-item
               a(class="nav-link navbar-page-name-products" href="/products") Products
+            li.nav-item
+              a(class="nav-link navbar-page-name-cart" href="/cart") Cart
           if (!userInfo)
             div(class="d-flex")
               a(class="btn btn-outline-light me-2" href="/auth/login") Login
