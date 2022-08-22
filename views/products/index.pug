@@ -74,7 +74,7 @@ block content
               .card-body 
                 h5.card-title.product__card-title= product.name
                 p.card-text= product.description
-                a(href="#" class="btn btn-primary") Add to cart
+                a(href="/cart/add/" + product.id class="btn btn-primary") Add to cart
 
     .container.pagination-container  
       nav(aria-label="Page navigation example")
