@@ -19,7 +19,7 @@ html
             li.nav-item
               a(class="nav-link navbar-page-name-products" href="/products") Products
             li.nav-item
-              a(class="nav-link navbar-page-name-cart" href="/cart") Cart
+              a(class="nav-link navbar-page-name-cart" href="/cart") Cart (#{cartCounter})
           if (!userInfo)
             div(class="d-flex")
               a(class="btn btn-outline-light me-2" href="/auth/login") Login
@@ -48,3 +48,4 @@ html
       block content 
 
     script(src="/js/common.js")
+    block javascripts

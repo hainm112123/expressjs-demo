@@ -9,9 +9,9 @@ const port = 5000;
 const usersRoute = require('./routes/users.route');
 const productsRoute = require('./routes/products.route');
 const authRoute = require('./routes/auth.route');
+const cartRoute = require('./routes/cart.route');
 
 const authMiddleware = require('./middleware/auth.middleware');
-const seesionMiddleware = require('./middleware/session.middleware');
 const sessionMiddleware = require('./middleware/session.middleware');
 
 const app = express();
@@ -24,17 +24,24 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 app.use(cookieParser(process.env.SESSION_SECRET));
 // console.log(process.env.SESSION_SECRET) ;
 
+app.use(sessionMiddleware);
+
 app.use(function(req, res, next) {
+  var cart = db.get("sessions").find({id: req.signedCookies.sessionId}).value().cart;
+
   if (req.signedCookies.userId) {
     var user = db.get("users").find({id: req.signedCookies.userId}).value();
     if (user) {
       res.locals.userInfo = user;
+      cart = user.cart;
     }
   }
+
+  var counter = 0;
+  for (var key in cart) counter += cart[key];
+  res.locals.cartCounter = counter;
   next();
 });
-
-app.use(sessionMiddleware);
 
 app.get('/', function(req, res) {
   res.render('index', {
@@ -44,6 +51,7 @@ app.get('/', function(req, res) {
 
 app.use('/users', authMiddleware.requireAuth, usersRoute);
 app.use('/products', productsRoute);
+app.use('/cart', cartRoute);
 app.get('/logout', function(req, res) {
   res.clearCookie('userId');
   res.redirect('/');
