@@ -60,14 +60,14 @@ module.exports = {
       return;
     }
 
-    const defaultAvatar = "uploads/4cb787a9affa096a7dd719936e65ce3c";
+    const defaultAvatar = "/uploads/4cb787a9affa096a7dd719936e65ce3c";
     usersRef.push({
       id: shortid.generate(), 
       name: inputValues.name,
       phone: inputValues.phone,
       email: inputValues.email,
       password: md5(inputValues.password),
-      avatar: req.file ? req.file.path.split('/').slice(1).join('/') : defaultAvatar,
+      avatar: req.file ? "/" + req.file.path.split('/').slice(1).join('/') : defaultAvatar,
     }).write();
 
     user = usersRef.find({email: inputValues.email}).value();
