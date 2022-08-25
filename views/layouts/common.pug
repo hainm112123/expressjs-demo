@@ -13,13 +13,15 @@ html
         div(class="collapse navbar-collapse") 
           ul(class="navbar-nav me-auto mb-2 mb-lg-0")
             li.nav-item
-              a(class="nav-link navbar-page-name-", href="/") Home
+              a(class="nav-link navbar-left-title" id="navbar-home", href="/") Home
             li.nav-item
-              a(class="nav-link navbar-page-name-users", href="/users") Users
+              a(class="nav-link navbar-left-title" id="navbar-users", href="/users") Users
             li.nav-item
-              a(class="nav-link navbar-page-name-products" href="/products") Products
+              a(class="nav-link navbar-left-title" id="navbar-products" href="/products") Products
             li.nav-item
-              a(class="nav-link navbar-page-name-cart" href="/cart") Cart (#{cartCounter})
+              a(class="nav-link navbar-left-title" id="navbar-cart" href="/cart") Cart (#{cartCounter})
+            li.nav-item 
+              a(class="nav-link navbar-left-title" id="navbar-transfer" href="/transfer/create") Transfer
           if (!userInfo)
             div(class="d-flex")
               a(class="btn btn-outline-light me-2" href="/auth/login") Login

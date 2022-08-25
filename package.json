@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.20.0",
     "cookie-parser": "^1.4.6",
+    "csurf": "^1.11.0",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "lowdb": "^1.0.0",
@@ -22,5 +23,13 @@
   "devDependencies": {
     "nodemon": "^2.0.19"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hainm112123/expressjs-demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hainm112123/expressjs-demo/issues"
+  },
+  "homepage": "https://github.com/hainm112123/expressjs-demo#readme",
   "description": ""
 }
