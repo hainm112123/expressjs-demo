@@ -4,7 +4,13 @@ const express = require('express');
 const csrf = require('csurf');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const db = require('./db');
+const mongoose = require('mongoose');
+
+mongoose.connect(process.env.MONGO_URL);
+const User = require('./models/users.model');
+const Session = require('./models/sessions.model');
+
+// const db = require('./db');
 const port = 5000;
 
 const usersRoute = require('./routes/users.route');
@@ -30,11 +36,14 @@ app.use(sessionMiddleware);
 
 app.use(express.static('public'));
 
-app.use(function(req, res, next) {
-  var cart = db.get("sessions").find({id: req.signedCookies.sessionId}).value().cart;
+app.use(async function(req, res, next) {
+  // var cart = db.get("sessions").find({id: req.signedCookies.sessionId}).value().cart;
+  var session = await Session.findById(req.signedCookies.sessionId);
+  var cart = session.cart;
 
   if (req.signedCookies.userId) {
-    var user = db.get("users").find({id: req.signedCookies.userId}).value();
+    // var user = db.get("users").find({id: req.signedCookies.userId}).value();
+    var user = await User.findById(req.signedCookies.userId);
     if (user) {
       res.locals.userInfo = user;
       cart = user.cart;
@@ -53,16 +62,16 @@ app.get('/', function(req, res) {
   });
 });
 
-app.use('/users', authMiddleware.requireAuth, usersRoute);
+// app.use('/users', authMiddleware.requireAuth, usersRoute);
 app.use('/products', productsRoute);
 app.use('/cart', cartRoute);
-app.use('/transfer', authMiddleware.requireAuth, transferRoute);
+// app.use('/transfer', authMiddleware.requireAuth, transferRoute);
 
-app.get('/logout', function(req, res) {
-  res.clearCookie('userId');
-  res.redirect('/');
-});
-app.use('/auth', authMiddleware.authed, authRoute);
+// app.get('/logout', function(req, res) {
+//   res.clearCookie('userId');
+//   res.redirect('/');
+// });
+// app.use('/auth', authMiddleware.authed, authRoute);
 
 app.listen(port, function() {
   console.log('Sever listening on port ' + port);

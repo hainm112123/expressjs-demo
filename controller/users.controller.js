@@ -23,7 +23,9 @@ module.exports = {
   },
 
   create: function(req, res) {
-    res.render('users/create');
+    res.render('users/create', {
+      csrfToken: req.csrfToken(),
+    });
   },
 
   viewUser: function(req, res) {
@@ -36,6 +38,6 @@ module.exports = {
 
   postCreate: function(req, res) {
     usersRef.push({id: shortid.generate(), name: req.body.name, phone: req.body.phone}).write();
-    res.render('users/create');
+    res.redirect('back');
   },
 }

@@ -1,13 +1,17 @@
-const db = require('../db');
+// const db = require('../db');
 
-const sessionsRef = db.get('sessions');
-const productsRef = db.get('products');
-const usersRef = db.get('users');
+// const sessionsRef = db.get('sessions');
+// const productsRef = db.get('products');
+// const usersRef = db.get('users');
+
+const User = require('../models/users.model');
+const Product = require('../models/products.model');
+const Session = require('../models/sessions.model');
 
 module.exports = {
-  index: function(req, res) {
+  index: async function(req, res) {
     var cart = {};
-    var user = res.locals.userInfo
+    var user = res.locals.userInfo;
     if (user) {
       cart = user.cart ? user.cart : {};
     }
@@ -17,10 +21,13 @@ module.exports = {
         res.redirect('/products');
         return;
       }
-      cart = sessionsRef.find({id: sessionId}).value().cart;
+      // cart = sessionsRef.find({id: sessionId}).value().cart;
+      var session = await Session.findById(sessionId);
+      cart = session.cart;
     }
 
-    var products = productsRef.value();
+    // var products = productsRef.value();
+    var products = await Product.find();
     var cartProducts = [];
     for (var key in cart) {
       cartProducts.push({
@@ -35,14 +42,14 @@ module.exports = {
     }); 
   },
 
-  addToCart: function(req, res) {
+  addToCart: async function(req, res) {
     var productId = req.params.productId;
 
     if (res.locals.userInfo) {
       const user = res.locals.userInfo;
       var counter = user.cart && user.cart[productId] ? user.cart[productId] : 0;
       usersRef.find({id: user.id}).set('cart.' + productId, counter + 1).write();
-      
+      // await User.findByIdAndUpdate(user.id, )
       res.redirect('back');
       return;
     }

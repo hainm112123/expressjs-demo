@@ -1,13 +1,10 @@
-const shortid = require('shortid');
-const db = require('../db');
-
-const productsRef = db.get('products');
+const Product = require('../models/products.model');
 
 module.exports = {
-  index: function(req, res) {
+  index: async function(req, res) {
     var page = parseInt(req.query.page) || 1;
     var perPage = 8;
-    var products = productsRef.value();
+    var products = await Product.find({});
     if (req.query.q) {
       var q = req.query.q.toLowerCase();
       products = products.filter(function(product) {
@@ -24,14 +21,17 @@ module.exports = {
   },
   
   create: function(req, res) {
-    res.render('products/create', {});
+    res.render('products/create', {
+      csrfToken: req.csrfToken(),
+    });
   },
 
-  postCreate: function(req, res) {
+  postCreate: async function(req, res) {
     var productInfo = req.body.select;
     if (productInfo === "null") {
       res.render('products/create', {
         notChoosed: 1,
+        csrfToken: req.csrfToken(),
       });
     }
 
@@ -44,20 +44,21 @@ module.exports = {
       shortName += productInfo[i];
     }
 
-    productsRef.push({
-      id: shortid.generate(),
+    var newProduct = new Product({
       name: name,
       shortName: shortName,
       imgURL: "/image/products/" + shortName + ".png",
       description: "Some quick example text to build on the card title and make up the bulk of the card's content.",
-    }).write();
+    });
+    await newProduct.save();
 
-    res.render('products/create');
+    res.redirect('back');
   },
 
-  search: function(req, res) {
+  search: async function(req, res) {
     var q = req.query.q.toLowerCase();
-    var matchedProducts = productsRef.value().filter(function(product) {
+    var prodcuts = await Product.find() ;
+    var matchedProducts = prodcuts.filter(function(product) {
       return product.name.toLowerCase().indexOf(q) !== -1 || product.shortName.toLowerCase().indexOf(q) !== -1;
     });
     var page = parseInt(req.query.page) || 1;
