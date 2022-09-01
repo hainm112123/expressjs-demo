@@ -8,6 +8,7 @@ module.exports = async function(req, res, next) {
     });
     await session.save();
     var sessionId = session._id.toString();
+    // console.log(sessionId);
     res.cookie('sessionId', sessionId, {
       signed: true,
     });
@@ -16,6 +17,8 @@ module.exports = async function(req, res, next) {
     //   id: sessionId,
     //   cart: {},
     // }).write();
+    res.redirect('back');
+    return;
   }
   
   next();

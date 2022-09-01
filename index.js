@@ -32,21 +32,22 @@ app.use(cookieParser(process.env.SESSION_SECRET));
 // console.log(process.env.SESSION_SECRET) ;
 app.use(csrf({cookie: true}));
 
-app.use(sessionMiddleware);
+// app.use(sessionMiddleware);
 
 app.use(express.static('public'));
 
-app.use(async function(req, res, next) {
+app.use(sessionMiddleware, async function(req, res, next) {
   // var cart = db.get("sessions").find({id: req.signedCookies.sessionId}).value().cart;
+  // console.log(req.signedCookies.sessionId);
   var session = await Session.findById(req.signedCookies.sessionId);
-  var cart = session.cart;
+  var cart = session.cart ? session.cart : {};
 
   if (req.signedCookies.userId) {
     // var user = db.get("users").find({id: req.signedCookies.userId}).value();
     var user = await User.findById(req.signedCookies.userId);
     if (user) {
       res.locals.userInfo = user;
-      cart = user.cart;
+      cart = user.cart ? user.cart : {};
     }
   }
 
