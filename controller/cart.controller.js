@@ -52,6 +52,7 @@ module.exports = {
       var counter = user.cart && user.cart[productId] ? user.cart[productId] : 0;
       // usersRef.find({id: user.id}).set('cart.' + productId, counter + 1).write();
       var userDoc = await User.findById(user.id);
+      if (!userDoc.cart) userDoc.cart = {};
       userDoc.cart[productId] = counter + 1 ;
       userDoc.markModified('cart');
       await userDoc.save();
@@ -124,7 +125,7 @@ module.exports = {
       sessionDoc.cart[productId] = counter - 1 ;
     }
     sessionDoc.markModified('cart');
-    sessionDoc.save();
+    await sessionDoc.save();
 
     res.redirect('back');
   },
@@ -137,7 +138,8 @@ module.exports = {
       // usersRef.find({id: user.id}).unset('cart.' + productId).write();   
       var userDoc = await User.findById(user.id);
       delete userDoc.cart[productId];
-      userDoc.markModified('cart') ; userDoc.save();
+      userDoc.markModified('cart') ; 
+      await userDoc.save();
 
       res.redirect('back');
       return;
@@ -152,7 +154,8 @@ module.exports = {
     // sessionsRef.find({id: sessionId}).unset('cart.' + productId).write();
     var sessionDoc = await Session.findById(sessionId);
     delete sessionDoc.cart[productId];
-    sessionDoc.markModified('cart'); sessionDoc.save();
+    sessionDoc.markModified('cart'); 
+    await sessionDoc.save();
 
     res.redirect('back');
   },

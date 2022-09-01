@@ -4,6 +4,7 @@ block content
   h1 Signup 
 
   form(method="POST" enctype="multipart/form-data") 
+    //- input(type="hidden" name="_csrf" value=csrfToken)
     .mb-3
       label(for="email" class="col-sm-2 col-form-label") Email 
       div(class="col-sm-10")

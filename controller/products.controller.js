@@ -22,7 +22,7 @@ module.exports = {
   
   create: function(req, res) {
     res.render('products/create', {
-      csrfToken: req.csrfToken(),
+      // csrfToken: req.csrfToken(),
     });
   },
 

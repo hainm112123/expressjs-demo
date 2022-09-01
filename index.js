@@ -26,11 +26,13 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', './views');
 
+const csrfProtection = csrf({cookie: true});
+
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(cookieParser(process.env.SESSION_SECRET));
 // console.log(process.env.SESSION_SECRET) ;
-app.use(csrf({cookie: true}));
+// app.use(csrf({cookie: true}));
 
 // app.use(sessionMiddleware);
 
@@ -63,16 +65,16 @@ app.get('/', function(req, res) {
   });
 });
 
-// app.use('/users', authMiddleware.requireAuth, usersRoute);
+app.use('/users', authMiddleware.requireAuth, usersRoute);
 app.use('/products', productsRoute);
 app.use('/cart', cartRoute);
-// app.use('/transfer', authMiddleware.requireAuth, transferRoute);
+app.use('/transfer', csrfProtection,authMiddleware.requireAuth, transferRoute);
 
-// app.get('/logout', function(req, res) {
-//   res.clearCookie('userId');
-//   res.redirect('/');
-// });
-// app.use('/auth', authMiddleware.authed, authRoute);
+app.get('/logout', function(req, res) {
+  res.clearCookie('userId');
+  res.redirect('/');
+});
+app.use('/auth', authMiddleware.authed, authRoute);
 
 app.listen(port, function() {
   console.log('Sever listening on port ' + port);
