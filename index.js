@@ -19,6 +19,8 @@ const authRoute = require('./routes/auth.route');
 const cartRoute = require('./routes/cart.route');
 const transferRoute = require('./routes/transfer.route');
 
+const apiProductRoute = require('./api/routes/products.route');
+
 const authMiddleware = require('./middleware/auth.middleware');
 const sessionMiddleware = require('./middleware/session.middleware');
 
@@ -68,7 +70,9 @@ app.get('/', function(req, res) {
 app.use('/users', authMiddleware.requireAuth, usersRoute);
 app.use('/products', productsRoute);
 app.use('/cart', cartRoute);
-app.use('/transfer', csrfProtection,authMiddleware.requireAuth, transferRoute);
+app.use('/transfer', csrfProtection, authMiddleware.requireAuth, transferRoute);
+
+app.use('/api/products', apiProductRoute);
 
 app.get('/logout', function(req, res) {
   res.clearCookie('userId');
